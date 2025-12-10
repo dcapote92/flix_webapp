@@ -13,13 +13,13 @@ def main():
         st.title('Flix App')
         menu_option = st.sidebar.selectbox(
             'Selecione uma opção',
-            ['Inicio', 'Géneros', 'Atores/Atrizes', 'Filmes', 'Avaliações']
+            ['Inicio', 'Gêneros', 'Atores/Atrizes', 'Filmes', 'Avaliações']
         )
 
         match menu_option:
             case 'Inicio':
                 st.write('Bem-vindo a FLIX')
-            case 'Géneros':
+            case 'Gêneros':
                 show_genres()
             case 'Atores/Atrizes':
                 show_actors()

@@ -18,7 +18,7 @@ def show_genres():
             show_toolbar=True
         )
     else:
-        st.warning('Nenhum gênero')
+        st.warning('Nenhum gênero encontrado.')
 
     st.title('Cadastrar novo Gênero')
     name = st.text_input('Nome do Gênero')
