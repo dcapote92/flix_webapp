@@ -12,7 +12,7 @@ class ActorService:
 
     def get_actors_name(self):
         actors = self.get_actors()
-        actors_name = [actors.get('name') for actor in actors]
+        actors_name = [actor.get('name') for actor in actors]
         return actors_name
 
     def create_actor(self, name: str, birthday: datetime, nationality: str):
