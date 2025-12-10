@@ -30,7 +30,11 @@ def show_actors():
         max_value=datetime.today(),
         format='DD/MM/YYYY'
     )
-    nationality = st.text_input('Nacionalidade')
+    nationality_dropdown = ['BRAZIL', 'USA', 'CAN', 'ESP', 'GBR', 'RSA']
+    nationality = st.selectbox(
+        label='Nacionalidade',
+        options=nationality_dropdown
+    )
 
     if st.button('Cadastrar'):
         new_actor = actors_service.create_actor(name, birthday, nationality)
