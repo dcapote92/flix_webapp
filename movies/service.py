@@ -9,11 +9,6 @@ class MovieService:
     def get_movies(self):
         return self.movie_repository.get_movies()
 
-    def get_movies_titles(self):
-        movies = self.get_movies()
-        movie_titles = [movies.get('title') for movie in movies]
-        return movie_titles
-
     def create_movie(self, title, genre, release_date, actors, resume):
         movie = dict(
             title=title,
