@@ -14,8 +14,10 @@ def show_movies():
     if movies:
         st.write('Lista de Filmes')
         movies_df = pd.json_normalize(movies)
+        movies_df = movies_df.drop(columns=['actors', 'genre.id'])
+
         AgGrid(
-            data=pd.DataFrame(movies_df),
+            data=movies_df,
             reload_data=True,
             key='movies_grid',
             show_toolbar=True
@@ -24,13 +26,20 @@ def show_movies():
         st.warning('Nenhum filme encontrado.')
 
     st.title('Cadastrar novo Filme')
+
     title = st.text_input('Nome do Filme')
+
     genre_service = GenreService()
-    genre_dropdown = genre_service.get_genres_name()
-    genre = st.selectbox(
+    genres = genre_service.get_genres()
+    genre_names = {
+        genre['name']: genre['id'] for genre in genres
+    }
+
+    selected_genre_name = st.selectbox(
         label='Gênero',
-        options=genre_dropdown
+        options=list(genre_names.keys())
     )
+
     release_date = st.date_input(
         label='Data de lançamento',
         value=datetime.today(),
@@ -38,17 +47,27 @@ def show_movies():
         max_value=datetime.today(),
         format='DD/MM/YYYY'
     )
+
     actor_service = ActorService()
-    actors_dropdown = actor_service.get_actors_name()
-    actor = st.selectbox(
+    actors = actor_service.get_actors()
+    actor_names = {
+        actor['name']: actor['id'] for actor in actors
+    }
+    selected_actor_names = st.multiselect(
         label='Ator/Atriz',
-        options=actors_dropdown
+        options=list(actor_names.keys())
     )
-    resume = st.text_area
+    selected_actors_ids = [actor_names[name] for name in selected_actor_names] 
+    resume = st.text_area('Resumo')
 
     if st.button('Cadastrar'):
-
-        new_movies = movies_service.create_movie(title, genre, release_date, actor, resume)
+        new_movies = movies_service.create_movie(
+            title=title,
+            genre=genre_names[selected_genre_name],
+            release_date=release_date,
+            actors=selected_actors_ids,
+            resume=resume
+        )
         if new_movies:
             st.rerun()
         else:
