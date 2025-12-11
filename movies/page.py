@@ -57,7 +57,7 @@ def show_movies():
         label='Ator/Atriz',
         options=list(actor_names.keys())
     )
-    selected_actors_ids = [actor_names[name] for name in selected_actor_names] 
+    selected_actors_ids = [actor_names[name] for name in selected_actor_names]
     resume = st.text_area('Resumo')
 
     if st.button('Cadastrar'):
