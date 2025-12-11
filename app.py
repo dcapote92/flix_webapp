@@ -4,6 +4,7 @@ from actors.page import show_actors
 from movies.page import show_movies
 from reviews.page import show_reviews
 from login.page import show_login
+from home.page import show_home
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
 
         match menu_option:
             case 'Inicio':
-                st.write('Bem-vindo a FLIX')
+                show_home()
             case 'Gêneros':
                 show_genres()
             case 'Atores/Atrizes':
